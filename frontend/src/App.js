@@ -46,7 +46,16 @@ class App extends Component {
     fetch(`${baseURL}/tasks`, {
       method: 'POST',
       headers: {'Content-Type': 'application/JSON'},
-      body: JSON.stringify({todo: newTask})
+      body: JSON.stringify(newTask)
+    })
+  }
+
+  removeTask = (task) => {
+    let newTaskList = this.state.tasks.filter(t => t !== task)
+    this.setState({tasks: newTaskList})
+
+    fetch(`http://localhost:3000/tasks/${task.id}`, {
+      method: 'DELETE'
     })
   }
 
@@ -59,7 +68,7 @@ class App extends Component {
         </div>
         <TaskForm addTask={this.addTask} />
         <h1>Tasks</h1>
-        <TaskList  tasks ={this.state.tasks} />
+        <TaskList  tasks ={this.state.tasks} removeTask={this.removeTask} />
       </div>
     );
   }

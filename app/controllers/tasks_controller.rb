@@ -27,7 +27,7 @@ class TasksController < ApplicationController
         )
         render json: @task, status: :ok
     end
-    def delete
+    def destroy
          @task = Task.find params[:id]
          @task.destroy
          render status: :no_content
