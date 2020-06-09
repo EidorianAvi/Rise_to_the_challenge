@@ -16,7 +16,7 @@ class App extends Component {
 
   componentDidMount(){
     this.getData()
-    this.getTasks()
+    // this.getTasks()
   }
 
   getData = () => {
@@ -35,6 +35,7 @@ class App extends Component {
     this.setState({
       userId: userId
     })
+    this.getTasks()
   }
 
   addTask = (task) => {
@@ -64,7 +65,7 @@ class App extends Component {
       <div className="App">
         <div>
           <h2>Pick a User</h2>
-          <UserDropdown users={this.state.users} action={this.selectUser}/>
+          <UserDropdown users={this.state.users} action={this.selectUser} />
         </div>
         <TaskForm addTask={this.addTask} />
         <h1>Tasks</h1>
