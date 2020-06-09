@@ -5,7 +5,7 @@ export default function UserDropdown (props) {
     const {users, action} = props
     const showUsers = users.map(user => <UserOption action={action} key={user.id} user={user} />)
         return (
-            <div>
+            <div className='user-dropdown'>
                 {showUsers}
             </div>
         )

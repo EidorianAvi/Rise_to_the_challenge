@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import TaskList from './TaskList'
+// import Quote from './Quote'
 import './App.css';
 import UserDropdown from './UserIDropdown';
 import TaskForm from './TaskForm'
 
-const baseURL = "http://localhost:3000/"
+const baseURL = 'http://localhost:3000/'
+const quoteURL = 'https://type.fit/api/quotes' 
 
 class App extends Component {
   state = {
@@ -16,6 +18,7 @@ class App extends Component {
 
   componentDidMount(){
     this.getData()
+    this.getQuote()
     // this.getTasks()
   }
 
@@ -54,21 +57,32 @@ class App extends Component {
   removeTask = (task) => {
     let newTaskList = this.state.tasks.filter(t => t !== task)
     this.setState({tasks: newTaskList})
-
+    
     fetch(`http://localhost:3000/tasks/${task.id}`, {
       method: 'DELETE'
     })
   }
 
+  getQuote = () => {
+    fetch(quoteURL)
+    .then(resp => resp.json())
+    .then(resp => this.setState({quotes: resp}))
+  }
+
   render() {
     return (
       <div className="App">
-        <div>
+        <header>
+          <h1>Rise to the Challenge</h1>
+        </header>
+        <div className='pick-user'>
           <h2>Pick a User</h2>
           <UserDropdown users={this.state.users} action={this.selectUser} />
         </div>
+        <div className='form-div'>
         <TaskForm addTask={this.addTask} />
-        <h1>Tasks</h1>
+        </div>
+        {/* <Quote quote={this.state.quote} /> */}
         <TaskList  tasks ={this.state.tasks} removeTask={this.removeTask} />
       </div>
     );
