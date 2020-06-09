@@ -7,6 +7,7 @@ const baseURL = "http://localhost:3000/"
 class App extends Component {
   state = {
     users: [],
+    userId: 1,
     tasks: [],
     quotes: []
   }
@@ -14,10 +15,17 @@ class App extends Component {
   componentDidMount(){
     this.getData()
   }
+
   getData = () => {
     fetch(`${baseURL}users`)
       .then(response => response.json())
       .then(response => this.setState({users: response}))
+  }
+
+  selectUser = (userId) => {
+    this.setState({
+      userId: userId
+    })
   }
 
   render() {
@@ -25,7 +33,7 @@ class App extends Component {
       <div className="App">
         <div>
           <h2>Pick a User</h2>
-          <UserDropdown users={this.state.users}/>
+          <UserDropdown users={this.state.users} action={this.selectUser}/>
         </div>
       </div>
     );
