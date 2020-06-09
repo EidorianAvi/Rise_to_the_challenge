@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function UserOption({ user }) {
+export default function UserOption({ user, action }) {
     return (
-        <option>{user.name}</option>
+        <button onClick={() => action(user.id)}>{user.name}</button>
     )
 }
