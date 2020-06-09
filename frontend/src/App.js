@@ -14,12 +14,19 @@ class App extends Component {
 
   componentDidMount(){
     this.getData()
+    this.getTasks()
   }
 
   getData = () => {
     fetch(`${baseURL}users`)
       .then(response => response.json())
       .then(response => this.setState({users: response}))
+  }
+
+  getTasks = () => {
+    fetch(`${baseURL}users/${this.state.userId}`)
+      .then(response => response.json())
+      .then(response => this.setState({tasks: response}))
   }
 
   selectUser = (userId) => {
